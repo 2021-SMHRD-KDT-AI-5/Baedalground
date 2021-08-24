@@ -66,10 +66,11 @@ public class DAO {
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
+				String user = rs.getString(1);
 				String nick_name = rs.getString(3);
 				String address = rs.getString(5);
 				
-				result =  "1,"  + nick_name + "," + address;
+				result =  "1," + user + ", " + nick_name + "," + address;
 				System.out.println("로그인 성공");
 			}else {
 				result =  "0";
@@ -331,6 +332,42 @@ public class DAO {
 		}
 		return res_DTO;
 		
+	}
+
+	public String update(String temp_pw, String up_pw, String temp_nick, String temp_address, String id) {
+		String result = null;
+        conn();
+        
+        String sql = "update member set pw=?, nick_name=?, address=? where id=? and pw=?";
+        
+        try {
+           psmt = conn.prepareStatement(sql);
+           
+           psmt.setString(1,up_pw);
+           psmt.setString(2,temp_nick);
+           psmt.setString(3,temp_address);
+           psmt.setString(4,id);
+           psmt.setString(5,temp_pw);
+          
+           
+           int count = psmt.executeUpdate();
+           System.out.println("sql 성공!");
+           
+           if(count!=0) {
+              result = "1";
+              System.out.println("업데이트 성공");
+           }else {
+              result = "0";
+              System.out.println("업데이트 실패");
+           }
+           
+        } catch (SQLException e) {
+           System.out.println("Update error");
+           e.printStackTrace();
+        }
+        
+        return  result;
+
 	}
 
 
