@@ -1,60 +1,62 @@
 package model;
 
 public class reviewDTO {
-	private String nick_name;
-	private String write_date;
-	private int score_del;
-	private int score_amo;
-	private int score_driv;
+	private int tast;
+	private int amount;
+	private int speed;
+	private String review;
+	private String review_nick;
 	
-	public reviewDTO(String nick_name, String write_date, int score_del, int score_amo, int score_driv) {
+	public reviewDTO(int tast, int amount, int speed, String review, String review_nick) {
 		super();
-		this.nick_name = nick_name;
-		this.write_date = write_date;
-		this.score_del = score_del;
-		this.score_amo = score_amo;
-		this.score_driv = score_driv;
+		this.tast = tast;
+		this.amount = amount;
+		this.speed = speed;
+		this.review = review;
+		this.review_nick = review_nick;
 	}
 
-	public String getNick_name() {
-		return nick_name;
+	public int getTast() {
+		return tast;
 	}
 
-	public void setNick_name(String nick_name) {
-		this.nick_name = nick_name;
+	public void setTast(int tast) {
+		this.tast = tast;
 	}
 
-	public String getWrite_date() {
-		return write_date;
+	public int getAmount() {
+		return amount;
 	}
 
-	public void setWrite_date(String write_date) {
-		this.write_date = write_date;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
-	public int getScore_del() {
-		return score_del;
+	public int getSpeed() {
+		return speed;
 	}
 
-	public void setScore_del(int score_del) {
-		this.score_del = score_del;
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
-	public int getScore_amo() {
-		return score_amo;
+	public String getReview() {
+		return review;
 	}
 
-	public void setScore_amo(int score_amo) {
-		this.score_amo = score_amo;
+	public void setReview(String review) {
+		this.review = review;
 	}
 
-	public int getScore_driv() {
-		return score_driv;
+	public String getReview_nick() {
+		return review_nick;
 	}
 
-	public void setScore_driv(int score_driv) {
-		this.score_driv = score_driv;
+	public void setReview_nick(String review_nick) {
+		this.review_nick = review_nick;
 	}
+	
+	
 	
 	
 }
