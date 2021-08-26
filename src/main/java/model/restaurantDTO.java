@@ -1,60 +1,119 @@
 package model;
 
 public class restaurantDTO {
-	private String res_id;
-	private String res_pw;
-	private String res_name;
-	private String res_address;
-	private int call_num;
-	
-	public restaurantDTO(String res_id, String res_pw, String res_name, String res_address, int call_num) {
+	 // 식당순번 
+    private int resSeq;
+
+    // 식당아이디 
+    private String resId;
+
+    // 식당비밀번호 
+    private String resPw;
+
+    // 식당카테고리 
+    private String resCategory;
+
+    // 식당명 
+    private String resName;
+
+    // 식당주소 
+    private String resAddr;
+
+    // 식당전화번호 
+    private String resPhone;
+
+    // 위도 
+    private Double latitude;
+
+    // 경도 
+    private Double longitude;
+
+	public restaurantDTO(int resSeq, String resId, String resPw, String resCategory, String resName, String resAddr,
+			String resPhone, Double latitude, Double longitude) {
 		super();
-		this.res_id = res_id;
-		this.res_pw = res_pw;
-		this.res_name = res_name;
-		this.res_address = res_address;
-		this.call_num = call_num;
+		this.resSeq = resSeq;
+		this.resId = resId;
+		this.resPw = resPw;
+		this.resCategory = resCategory;
+		this.resName = resName;
+		this.resAddr = resAddr;
+		this.resPhone = resPhone;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
-	public String getRes_id() {
-		return res_id;
+	public int getResSeq() {
+		return resSeq;
 	}
 
-	public void setRes_id(String res_id) {
-		this.res_id = res_id;
+	public void setResSeq(int resSeq) {
+		this.resSeq = resSeq;
 	}
 
-	public String getRes_pw() {
-		return res_pw;
+	public String getResId() {
+		return resId;
 	}
 
-	public void setRes_pw(String res_pw) {
-		this.res_pw = res_pw;
+	public void setResId(String resId) {
+		this.resId = resId;
 	}
 
-	public String getRes_name() {
-		return res_name;
+	public String getResPw() {
+		return resPw;
 	}
 
-	public void setRes_name(String res_name) {
-		this.res_name = res_name;
+	public void setResPw(String resPw) {
+		this.resPw = resPw;
 	}
 
-	public String getRes_address() {
-		return res_address;
+	public String getResCategory() {
+		return resCategory;
 	}
 
-	public void setRes_address(String res_address) {
-		this.res_address = res_address;
+	public void setResCategory(String resCategory) {
+		this.resCategory = resCategory;
 	}
 
-	public int getCall_num() {
-		return call_num;
+	public String getResName() {
+		return resName;
 	}
 
-	public void setCall_num(int call_num) {
-		this.call_num = call_num;
+	public void setResName(String resName) {
+		this.resName = resName;
+	}
+
+	public String getResAddr() {
+		return resAddr;
+	}
+
+	public void setResAddr(String resAddr) {
+		this.resAddr = resAddr;
+	}
+
+	public String getResPhone() {
+		return resPhone;
+	}
+
+	public void setResPhone(String resPhone) {
+		this.resPhone = resPhone;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 	
+    
 	
 }

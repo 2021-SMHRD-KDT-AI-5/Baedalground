@@ -1,23 +1,90 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ì§€ë„ ìƒì„±í•˜ê¸°</title>
-<link rel="stylesheet" href="css/style.css">
-
+	<meta charset="utf-8"/>
+	<title>Áöµµ »ı¼ºÇÏ±â</title>
 </head>
 <body>
-	<!-- ì§€ë„ë¥¼ í‘œì‹œí•  div ì…ë‹ˆë‹¤ -->
-	<div class="map_wrap">
-	    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-	</div>
+	<!-- Áöµµ¸¦ Ç¥½ÃÇÒ div ÀÔ´Ï´Ù -->
+	<!-- <div class="map_wrap">  -->
+    	<div id="map" style="width:400px;height:400px;"></div>
+	<!-- </div> -->
 	<!--  -------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 	<script src="./js/jquery-3.6.0.min.js"></script>
-
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2214e25ae5fc7d10f74fded049eed004"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2214e25ae5fc7d10f74fded049eed004&libraries=services,clusterer,drawing"></script>
 	<script src="./js/markdown_save.js"></script>
+	 
+	<script>
+	  
+		$(function() {
+			$.ajax({
+				type : "post",
+				dataType : "json", //¼­¹ö¿¡¼­ ¹ŞÀ» µ¥ÀÌÅÍ Çü½ÄÀ» ÁöÀûÇÑ´Ù.
+				url : "Markdown_info_Servlet", //¿äÃ»¹ŞÀ» ¼­ºí¸´ url ÀÌ¸§
+				success : function(check) {
+					alert("¼º°ø"); //Åë½Å¿¡ ¼º°øÇß´ÂÁö È®ÀÎÇÏ±âÀ§ÇÑ ¾Ë¸²Ã¢
+					/* console.log(check); */
+					var mapContainer = document.getElementById('map'), // Áöµµ¸¦ Ç¥½ÃÇÒ div 
+					mapOption = {
+						center : new kakao.maps.LatLng(
+								35.11066820739486, 126.87733276913963), // ÁöµµÀÇ Áß½ÉÁÂÇ¥
+						level : 2
+					// ÁöµµÀÇ È®´ë ·¹º§
+					};
+	
+					// Áöµµ¸¦ Ç¥½ÃÇÒ div¿Í  Áöµµ ¿É¼ÇÀ¸·Î  Áöµµ¸¦ »ı¼ºÇÕ´Ï´Ù
+					var map = new kakao.maps.Map(mapContainer,
+							mapOption);
+	
+					//¸¶Ä¿ ÀÌ¹ÌÁöÀÇ ÀÌ¹ÌÁö ÁÖ¼ÒÀÔ´Ï´Ù
+					var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+	
+					/*------------------------------------------------------------------------------------------------------------------------------------ */
+					// Áöµµ¿¡ ¸¶Ä¿¿Í ÀÎÆ÷À©µµ¿ì¸¦ Ç¥½ÃÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+					function displayMarker(locPosition, message) {
+	
+						// ¸¶Ä¿¸¦ »ı¼ºÇÕ´Ï´Ù
+						var marker = new kakao.maps.Marker({
+							map : map,
+							position : locPosition
+						});
+	
+						var iwContent = message, // ÀÎÆ÷À©µµ¿ì¿¡ Ç¥½ÃÇÒ ³»¿ë
+						iwRemoveable = true;
+	
+						// ÀÎÆ÷À©µµ¿ì¸¦ »ı¼ºÇÕ´Ï´Ù
+						var infowindow = new kakao.maps.InfoWindow({
+							content : iwContent,
+							removable : iwRemoveable
+						});
+	
+						// ÀÎÆ÷À©µµ¿ì¸¦ ¸¶Ä¿À§¿¡ Ç¥½ÃÇÕ´Ï´Ù 
+						infowindow.open(map, marker);
+	
+						// Áöµµ Áß½ÉÁÂÇ¥¸¦ Á¢¼ÓÀ§Ä¡·Î º¯°æÇÕ´Ï´Ù
+						map.setCenter(locPosition);
+					}
+					/*------------------------------------------------------------------------------------------------------------------------------------ */
+					// Áöµµ È®´ë Ãà¼Ò¸¦ Á¦¾îÇÒ ¼ö ÀÖ´Â  ÁÜ ÄÁÆ®·ÑÀ» »ı¼ºÇÕ´Ï´Ù
+					var zoomControl = new kakao.maps.ZoomControl();
+					map.addControl(zoomControl,
+							kakao.maps.ControlPosition.RIGHT);
+	
+					// Áöµµ°¡ È®´ë ¶Ç´Â Ãà¼ÒµÇ¸é ¸¶Áö¸· ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿Â ÇÔ¼ö¸¦ È£ÃâÇÏµµ·Ï ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
+					kakao.maps.event.addListener(map, 'zoom_changed',
+							function() {
+	
+								// ÁöµµÀÇ ÇöÀç ·¹º§À» ¾ò¾î¿É´Ï´Ù
+								var level = map.getLevel();
+							});
+					/*------------------------------------------------------------------------------------------------------------------------------------ */
+				}
+			});
+			//ajax ³¡³ª´Â ºÎºĞ
+		});
+	</script>
+	
 </body>
 </html>

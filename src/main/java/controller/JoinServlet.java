@@ -25,6 +25,8 @@ public class JoinServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		int cash = Integer.parseInt(request.getParameter("cash"));
 		String gender = request.getParameter("gender");
+		
+		System.out.println(gender);
 
 		String result = dao.join(id, pw, nick_name, age, address, cash, gender);
 		

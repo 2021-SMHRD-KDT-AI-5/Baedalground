@@ -1,60 +1,108 @@
 package model;
 
 public class reviewDTO {
-	private int tast;
-	private int amount;
-	private int speed;
-	private String review;
-	private String review_nick;
-	
-	public reviewDTO(int tast, int amount, int speed, String review, String review_nick) {
+	// 리뷰순번 
+    private int reviewSeq;
+
+    // 회원아이디 
+    private String memberId;
+
+    // 리뷰내용 
+    private String reviewContents;
+
+    // 입력일자 
+    private String inputDate;
+
+    // 맛평가 
+    private int tasteReview;
+
+    // 양평가 
+    private int amountReview;
+
+    // 배달평가 
+    private int deliReview;
+
+    // 주문순번 
+    private int orderSeq;
+
+	public reviewDTO(int reviewSeq, String memberId, String reviewContents, String inputDate, int tasteReview,
+			int amountReview, int deliReview, int orderSeq) {
 		super();
-		this.tast = tast;
-		this.amount = amount;
-		this.speed = speed;
-		this.review = review;
-		this.review_nick = review_nick;
+		this.reviewSeq = reviewSeq;
+		this.memberId = memberId;
+		this.reviewContents = reviewContents;
+		this.inputDate = inputDate;
+		this.tasteReview = tasteReview;
+		this.amountReview = amountReview;
+		this.deliReview = deliReview;
+		this.orderSeq = orderSeq;
 	}
 
-	public int getTast() {
-		return tast;
+	public int getReviewSeq() {
+		return reviewSeq;
 	}
 
-	public void setTast(int tast) {
-		this.tast = tast;
+	public void setReviewSeq(int reviewSeq) {
+		this.reviewSeq = reviewSeq;
 	}
 
-	public int getAmount() {
-		return amount;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public int getSpeed() {
-		return speed;
+	public String getReviewContents() {
+		return reviewContents;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setReviewContents(String reviewContents) {
+		this.reviewContents = reviewContents;
 	}
 
-	public String getReview() {
-		return review;
+	public String getInputDate() {
+		return inputDate;
 	}
 
-	public void setReview(String review) {
-		this.review = review;
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
 	}
 
-	public String getReview_nick() {
-		return review_nick;
+	public int getTasteReview() {
+		return tasteReview;
 	}
 
-	public void setReview_nick(String review_nick) {
-		this.review_nick = review_nick;
+	public void setTasteReview(int tasteReview) {
+		this.tasteReview = tasteReview;
 	}
+
+	public int getAmountReview() {
+		return amountReview;
+	}
+
+	public void setAmountReview(int amountReview) {
+		this.amountReview = amountReview;
+	}
+
+	public int getDeliReview() {
+		return deliReview;
+	}
+
+	public void setDeliReview(int deliReview) {
+		this.deliReview = deliReview;
+	}
+
+	public int getOrderSeq() {
+		return orderSeq;
+	}
+
+	public void setOrderSeq(int orderSeq) {
+		this.orderSeq = orderSeq;
+	}
+
+    
 	
 	
 	

@@ -20,10 +20,6 @@
 						sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno,
 						mtYn, lnbrMnnm, lnbrSlno, emdNo, entX, entY) {
 		
-		
-		
-		
-		
 					// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 					document.form.roadAddrPart1.value = roadAddrPart1;
 					document.form.roadAddrPart2.value = roadAddrPart2;
@@ -54,7 +50,7 @@
 <title>주소 입력 샘플</title>
 </head>
 <body>
-	<form name="form" action="insert_address" id="form" method="post">
+	<form name="form" action="InsertAddressServlet" id="form" method="post">
 		<table>
 			<colgroup>
 				<col style="width: 20%">

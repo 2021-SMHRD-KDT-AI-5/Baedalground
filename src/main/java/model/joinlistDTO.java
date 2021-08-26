@@ -1,129 +1,97 @@
 package model;
 
 public class joinlistDTO {
-	private String title;
-	private String restaurant;
-	private String time;
-	private String min;
-	private String host_nick;
-	private String location;
-	private String content;
-	private String my_nick;
-//	private String book_menu;
-//	private String book_price;
+	    // 참여순번 
+	    private int joinSeq;
 
-	// 2. 생성자 : 객체 생성할떄 저장 될 데이터를 절달받음
+	    // 글제목 
+	    private String title;
 
-	public joinlistDTO(String title, String restaurant, String time, String min, String location , String host_nick,
-			String content, String my_nick ) {
-		
-		this.title = title;
-		this.restaurant = restaurant;
-		this.time = time;
-		this.min = min;
-		this.location = location;
-		this.host_nick = host_nick;
-		this.content = content;
-		this.my_nick = my_nick;
-//		this.book_menu = book_menu;
-//		this.book_price = book_price;
-	}
-	
+	    // 커뮤니티순번 
+	    private int communitySeq;
 
-//	public String getBook_menu() {
-//		return book_menu;
-//	}
-//
-//
-//	public void setBook_menu(String book_menu) {
-//		this.book_menu = book_menu;
-//	}
-//
-//
-//	public String getBook_price() {
-//		return book_price;
-//	}
-//
-//
-//	public void setBook_price(String book_price) {
-//		this.book_price = book_price;
-//	}
+	    // 글내용 
+	    private String content;
 
+	    // 메뉴순번 
+	    private int menuSeq;
 
-	public String getTitle() {
-		return title;
-	}
+	    // 메뉴수량 
+	    private int menuCnt;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	    // 고객아이디 
+	    private String memberId;
 
-	public String getRestaurnat() {
-		return restaurant;
-	}
+		public joinlistDTO(int joinSeq, String title, int communitySeq, String content, int menuSeq, int menuCnt,
+				String memberId) {
+			super();
+			this.joinSeq = joinSeq;
+			this.title = title;
+			this.communitySeq = communitySeq;
+			this.content = content;
+			this.menuSeq = menuSeq;
+			this.menuCnt = menuCnt;
+			this.memberId = memberId;
+		}
 
-	public void setRestaurant(String restaurant) {
-		this.restaurant = restaurant;
-	}
+		public int getJoinSeq() {
+			return joinSeq;
+		}
 
-	public String getTime() {
-		return time;
-	}
+		public void setJoinSeq(int joinSeq) {
+			this.joinSeq = joinSeq;
+		}
 
-	public void setTime(String time) {
-		this.time = time;
-	}
+		public String getTitle() {
+			return title;
+		}
 
-	public String getMin() {
-		return min;
-	}
+		public void setTitle(String title) {
+			this.title = title;
+		}
 
-	public void setMin(String min) {
-		this.min = min;
-	}
+		public int getCommunitySeq() {
+			return communitySeq;
+		}
 
-	public String getHost_nick() {
-		return host_nick;
-	}
+		public void setCommunitySeq(int communitySeq) {
+			this.communitySeq = communitySeq;
+		}
 
+		public String getContent() {
+			return content;
+		}
 
-	public void setHost_nick(String host_nick) {
-		this.host_nick = host_nick;
-	}
+		public void setContent(String content) {
+			this.content = content;
+		}
 
+		public int getMenuSeq() {
+			return menuSeq;
+		}
 
-	public String getRestaurant() {
-		return restaurant;
-	}
+		public void setMenuSeq(int menuSeq) {
+			this.menuSeq = menuSeq;
+		}
+
+		public int getMenuCnt() {
+			return menuCnt;
+		}
+
+		public void setMenuCnt(int menuCnt) {
+			this.menuCnt = menuCnt;
+		}
+
+		public String getMemberId() {
+			return memberId;
+		}
+
+		public void setMemberId(String memberId) {
+			this.memberId = memberId;
+		}
 
 
-	public String getContent() {
-		return content;
-	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-
-	public String getLocation() {
-		return location;
-	}
-
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-
-	public String getMy_nick() {
-		return my_nick;
-	}
-
-
-	public void setMy_nick(String my_nick) {
-		this.my_nick = my_nick;
-	}
 
 	
 }
