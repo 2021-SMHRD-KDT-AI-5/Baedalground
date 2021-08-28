@@ -180,18 +180,17 @@ public class DAO {
 		
 	}
 
-	public String setup(String title, int restaurant, String time, int min, String location, String nick, String content) {
-	      
+	public String setup(String title, String restaurant, String time, int min, String location, String nick, String content) {
 	      String result = null;
 	      conn();
 	      
-	      String sql = "insert into communities values (COMMUNITIES_SEQ.NEXTVAL, ?, (select res_seq where res_name = ?), ?, ?, ?, ?, SYSDATE()";
+	      String sql = "insert into communities values (COMMUNITIES_SEQ.NEXTVAL, ?, (select res_seq from restaurants where res_name = ?), sysdate(datetime, ?, 'hh:mi'), ?, ?, ?, sysdate)";
 	      
 	      try {
 	         psmt = conn.prepareStatement(sql);
 	         
 	         psmt.setString(1, title);
-	         psmt.setInt(2, restaurant);
+	         psmt.setString(2, restaurant);
 	         psmt.setString(3, time);
 	         psmt.setInt(4, min);
 	         psmt.setString(5, location);
@@ -408,20 +407,95 @@ public class DAO {
 
 	}
 
-	public ArrayList<communityDTO> listup(String my_loca) {
-//		String my_loca
+	public JSONObject listup(String my_loca) {
+		
+		JSONObject commulist_DTO = new JSONObject();
+		int no_listup = 0;
+		
+		conn();
+		
+		String sql = "select * from communities";
+//		 where location=?
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+//			psmt.setString(1, my_loca);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				String title = rs.getString(2);
+				int restaurant = rs.getInt(3);
+				String time = rs.getString(4);
+		        int min = rs.getInt(5);
+		        String host_id = rs.getString(6);
+		        String content = rs.getString(7);
+		        
+		        JSONArray dto = new JSONArray();
+		        
+		        dto.add(title);
+		        dto.add(resitos(restaurant));
+		        dto.add(time);
+		        dto.add(min);
+		        dto.add(host_id);
+		        dto.add(content);
+		        
+		        commulist_DTO.put(no_listup, dto);
+		        no_listup++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			finish();
+		}
+		
+		return commulist_DTO;
+	}
+		
+	
+	public String resitos(int res_seq) {
+		
+		String result = "";
+		
+		conn();
+		
+		String sql = "select res_name from restaurants where res_seq = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, res_seq);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("rest seq to String error");
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
+	
+	public ArrayList<communityDTO> myPost(String nick) {
+		
 		 ArrayList<communityDTO> list = new ArrayList<communityDTO>();
 		 communityDTO commulist = null;
 
 	      try {
 	         conn();
 	         // 쿼리 실행
-//	         String sql = "select * from community where location=?";
-	         String sql = "select * from communities";
+	         String sql = "select * from community where host_id=?";
 
 	         psmt = conn.prepareStatement(sql);
-//	         psmt.setString(1, my_loca);
-
+	         psmt.setString(1, nick);
+	         
 	         rs = psmt.executeQuery();
 	         
 	         while (rs.next()) {
@@ -430,12 +504,10 @@ public class DAO {
 	            int restaurant = rs.getInt(3);
 	            String time = rs.getString(4);
 	            int min = rs.getInt(5);
-	            String location = rs.getString(6);
-	            String host_nick = rs.getString(6);
-	            
-//	            System.out.println(title +", "+ restaurant +", "+ time +", "+ min +", "+ location +", "+ host_nick);
+	            String host_id = rs.getString(6);
+	            String content = rs.getString(7);
 
-	            commulist = new communityDTO(0, title, restaurant, time, min, location, host_nick, null);
+	            commulist = new communityDTO(0, title, restaurant, time, min, host_id, content, null);
 	            list.add(commulist);
 	         }
 	      } catch (SQLException e) {
@@ -447,124 +519,99 @@ public class DAO {
 	      }
 	      return list;
 	   }
-//	
-//	public ArrayList<communityDTO> myPost(String nick) {
-//		
-//		 ArrayList<communityDTO> list = new ArrayList<communityDTO>();
-//		 communityDTO commulist = null;
-//
-//	      try {
-//	         conn();
-//	         // 쿼리 실행
-//	         String sql = "select * from community where host_nick=?";
-//
-//	         psmt = conn.prepareStatement(sql);
-//	         psmt.setString(1, nick);
-//	         
-//	         rs = psmt.executeQuery();
-//	         
-//	         while (rs.next()) {
-//	            // 컬럼인덱스는 1부터 시작
-//	        	String title = rs.getString(1);
-//	            String restaurant = rs.getString(2);
-//	            String time = rs.getString(3);
-//	            String min = rs.getString(4);
-//	            String location = rs.getString(5);
-//	            String host_nick = rs.getString(6);
-//	            String content = rs.getString(7);
-//
-//	            commulist = new communityDTO(title, restaurant, time, min, location, host_nick, content);
-//	            list.add(commulist);
-//	         }
-//	      } catch (SQLException e) {
-//	         System.out.println("sql문 오류다!!");
-//
-//	         e.printStackTrace();
-//	      } finally {
-//	         finish();
-//	      }
-//	      return list;
-//	   }
-//	
-//	public ArrayList<communityDTO> listclick(String nick, String list_title) {
-//		
-//		 ArrayList<communityDTO> list = new ArrayList<communityDTO>();
-//		 communityDTO commulist = null;
-//
-//	      try {
-//	         conn();
-//	         // 쿼리 실행
-//	         String sql = "select * from community where host_nick=? and title=?";
-//
-//	         psmt = conn.prepareStatement(sql);
-//	         psmt.setString(1, nick);
-//	         psmt.setString(2, list_title);
-//	         
-//	         rs = psmt.executeQuery();
-//	         
-//	         while (rs.next()) {
-//	            // 컬럼인덱스는 1부터 시작
-//	        	String title = rs.getString(1);
-//	            String restaurant = rs.getString(2);
-//	            String time = rs.getString(3);
-//	            String min = rs.getString(4);
-//	            String location = rs.getString(5);
-//	            String host_nick = rs.getString(6);
-//	            String content = rs.getString(7);
-//
-//	            commulist = new communityDTO(title, restaurant, time, min, location, host_nick, content);
-//	            list.add(commulist);
-//	         }
-//	      } catch (SQLException e) {
-//	         System.out.println("sql문 오류다!!");
-//
-//	         e.printStackTrace();
-//	      } finally {
-//	         finish();
-//	      }
-//	      return list;
-//	   }
-//	
-//	public ArrayList<joinlistDTO> Joinlist(String nick) {
-//		
-//		 ArrayList<joinlistDTO> list = new ArrayList<joinlistDTO>();
-//		 joinlistDTO commulist = null;
-//
-//	      try {
-//	         conn();
-//	         // 쿼리 실행
-//	         String sql = "select * from join where my_nick=?";
-//
-//	         psmt = conn.prepareStatement(sql);
-//	         psmt.setString(1,nick);
-//	       
-//	         
-//	         rs = psmt.executeQuery();
-//	         
-//	         while (rs.next()) {
-//	            // 컬럼인덱스는 1부터 시작
-//	        	String title = rs.getString(1);
-//	            String restaurant = rs.getString(2);
-//	            String time = rs.getString(3);
-//	            String min = rs.getString(4);
-//	            String location = rs.getString(5);
-//	            String host_nick = rs.getString(6);
-//	            String content = rs.getString(7);
-//	            String my_nick = rs.getString(8);
-//
-//	            commulist = new joinlistDTO(title, restaurant, time, min, location , host_nick, content, my_nick);
-//	            list.add(commulist);
-//	         }
-//	      } catch (SQLException e) {
-//	         System.out.println("sql문 오류다!!");
-//
-//	         e.printStackTrace();
-//	      } finally {
-//	         finish();
-//	      }
-//	      return list;
-//	   }
-//	
+	
+	public JSONObject listclick(String list_id, String list_title) {
+			
+		JSONObject clicklist_DTO = new JSONObject();
+		
+		int no_listup = 0;
+		
+		conn();
+		
+		try {
+		
+			String sql = "select * from communities where member_id = ? and title = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, list_id);
+			psmt.setString(2, list_title);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				String title = rs.getString(2);
+				int restaurant = rs.getInt(3);
+				String time = rs.getString(4);
+		        int min = rs.getInt(5);
+		        String host_id = rs.getString(6);
+		        String content = rs.getString(7);
+		        String input_time = rs.getString(8);
+		        
+		        JSONArray dto = new JSONArray();
+		        
+		        dto.add(title);
+		        dto.add(resitos(restaurant));
+		        dto.add(time);
+		        dto.add(min);
+		        dto.add(host_id);
+		        dto.add(content);
+		        dto.add(input_time);
+		        
+		        clicklist_DTO.put(no_listup, dto);
+		        no_listup++;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			finish();
+		}
+		
+	return clicklist_DTO;
+	
+   }
+	
+	public ArrayList<joinlistDTO> Joinlist(String nick) {
+		
+		 ArrayList<joinlistDTO> list = new ArrayList<joinlistDTO>();
+		 joinlistDTO commulist = null;
+
+	      try {
+	         conn();
+	         // 쿼리 실행
+	         String sql = "select * from communityjoins where (select nickname from members where member_id = ?)";
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1,nick);
+	       
+	         
+	         rs = psmt.executeQuery();
+	         
+	         while (rs.next()) {
+	            // 컬럼인덱스는 1부터 시작
+	        	String title = rs.getString(2);
+	            int communitySeq = rs.getInt(3);
+	            String content = rs.getString(4);
+	            int menuSeq = rs.getInt(5);
+	            int menuCnt = rs.getInt(6);
+	            String host_id = rs.getString(7);
+
+	            commulist = new joinlistDTO(0, title, communitySeq, content, menuSeq, menuCnt, host_id);
+	            list.add(commulist);
+	         }
+	      } catch (SQLException e) {
+	         System.out.println("sql문 오류다!!");
+
+	         e.printStackTrace();
+	      } finally {
+	         finish();
+	      }
+	      return list;
+	   }
+	
 //	public ArrayList<reviewDTO> reviewlist() {
 //		
 //		 ArrayList<reviewDTO> list = new ArrayList<reviewDTO>();
@@ -600,7 +647,7 @@ public class DAO {
 //	      }
 //	      return list;
 //	   }
-//	
+	
 	public String deleteJoin(String title) {
 		
 		String result = null;

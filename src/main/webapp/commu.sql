@@ -42,3 +42,7 @@ insert into review values(2, 1,4,'호오 낫밷', '명수');
 insert into review values(5, 5,4,'양도 많고 배달도 빨라요 맛있고 양도많고 너무너무 좋아요으어', '희근조직');
 
 select * from review
+
+select res_seq from restaurants where res_name = '멕시카나-진월점';
+
+insert into communities values (COMMUNITIES_SEQ.NEXTVAL, 'a', (select res_seq from restaurants where res_name = '멕시카나-진월점'), sysdate, 2, 'dddd', 'dd', sysdate);

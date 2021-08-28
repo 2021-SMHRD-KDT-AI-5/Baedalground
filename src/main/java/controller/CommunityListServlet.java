@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
 
 import model.DAO;
@@ -27,11 +29,8 @@ public class CommunityListServlet extends HttpServlet {
 		
 		System.out.println(my_loca);
 
-		ArrayList<communityDTO> result = dao.listup(my_loca);
+		JSONObject result = dao.listup(my_loca);
 		
-		System.out.println(result);
-		
-
 		Gson gson = new Gson();
 		
 		response.setContentType("application/json; charset=utf-8");

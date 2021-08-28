@@ -15,10 +15,9 @@ import model.DAO;
 public class CommunityServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAO dao = new DAO();
-		System.out.println(request.getParameter("min").getClass());
 
 		String title = request.getParameter("title");
-		int restaurant = Integer.valueOf(request.getParameter("restaurant"));
+		String restaurant = request.getParameter("restaurant");
 		String time = request.getParameter("time");
 		int min = Integer.valueOf(request.getParameter("min"));
 		String location = request.getParameter("location");

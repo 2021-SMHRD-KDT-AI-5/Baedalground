@@ -25,17 +25,17 @@ public class ReviewServlet extends HttpServlet {
 		
 		DAO dao = new DAO();
 
-		ArrayList<reviewDTO> result = dao.reviewlist(); 
+//		ArrayList<reviewDTO> result = dao.reviewlist(); 
 
 		Gson gson = new Gson();
 
 		response.setContentType("application/json; charset=utf-8");
-		String jsonArr = gson.toJson(result);
+//		String jsonArr = gson.toJson(result);
 		
-		System.out.println(jsonArr);
+//		System.out.println(jsonArr);
 		
 		PrintWriter writer = response.getWriter();
-		writer.print(jsonArr);
+//		writer.print(jsonArr);
 	}
 
 }

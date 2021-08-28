@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import model.DAO;
 import model.communityDTO;
 
@@ -18,15 +20,16 @@ import com.google.gson.Gson;
 @WebServlet("/ListClickServlet")
 public class ListClickServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("커뮤니티 글목록 요청...");
 		
 		DAO dao = new DAO();
 
-		String nick = request.getParameter("host_nick");
+		String list_id = request.getParameter("id");
 		String list_title = request.getParameter("title");
-		System.out.println(nick);
+		
+		System.out.println(list_id);
 		System.out.println(list_title);
-		ArrayList<communityDTO> result = dao.listclick(nick, list_title); 
+		
+		JSONObject result = dao.listclick(list_id, list_title); 
 
 		Gson gson = new Gson();
 

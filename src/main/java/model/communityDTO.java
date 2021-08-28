@@ -29,6 +29,7 @@ public class communityDTO {
 	public communityDTO(int communitySeq, String title, int resSeq, String reserveString, int cnt, String memberId,
 			String content, String input_date) {
 		super();
+		
 		this.communitySeq = communitySeq;
 		this.title = title;
 		this.resSeq = resSeq;
