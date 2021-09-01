@@ -29,6 +29,8 @@ public class SearchServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		writer.print(res_DTO);
 		
+		System.out.println(res_DTO.toString());
+		
 		dao.finish();
 	}
 

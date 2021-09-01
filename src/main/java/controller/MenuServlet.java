@@ -23,7 +23,12 @@ public class MenuServlet extends HttpServlet {
 		String search_menu = request.getParameter("search_menu");
 		
 		JSONObject menu_DTO = dao.menu(search_menu);
+		
+		System.out.println(menu_DTO);
+		
 		JSONObject menu_info_DTO = dao.menuinfo(search_menu);
+		
+		System.out.println(menu_info_DTO);
 		
 		JSONObject menu = new JSONObject();
 		menu.put("menu_DTO", menu_DTO);

@@ -27,7 +27,7 @@ public class Markdown_info_Servlet extends HttpServlet {
 		
 		DAO dao = new DAO();
 		ArrayList<markdownDTO> markdown_info = new ArrayList<markdownDTO>();
-		markdown_info = dao.getmarkdown_info();
+//		markdown_info = dao.getmarkdown_info();
 		
 		String id = null;
 		String title = null;

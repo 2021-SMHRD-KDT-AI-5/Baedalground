@@ -38,8 +38,21 @@ INSERT INTO menu VALUES ('청년피자-효천점', 'img_6', '비프홀리데이', 18900);
 INSERT INTO menu VALUES ('청년피자-효천점', 'img_7', '매드쉬림프', 18900);
 INSERT INTO menu VALUES ('청년피자-효천점', 'img_8', '할라불고기', 14900);
 
+select member_id from members where member_age between 20 AND 30 AND member_gender = 'M' AND member_addr like '%동';
 
-select * from menu
+select count(menu_seq) as cnt, menu_seq from orders where member_id = 'test' group by menu_seq ORDER by cnt desc;
+
+select menu_seq from orders where member_id = (select member_id from members where member_age between 20 AND 30 AND member_gender = 'M' AND member_addr like '%동');
+
+select menu_name from menus where menu_seq in (select count(menu_seq) as cnt, menu_seq from orders where member_id = (select member_id from members where member_age between 20 AND 30 AND member_gender = 'M' AND member_addr like '%동') group by menu_seq order by cnt desc);
+
+select menu_name from menus where menu_seq in (select menu_seq from (select count(menu_seq) as cnt, menu_seq from orders where member_id = (select member_id from members where member_age between 20 AND 30 AND member_gender = 'M' AND member_addr like '%동') group by menu_seq order by cnt desc));
+
+select menu_seq from (select count(menu_seq) as cnt, menu_seq from orders where member_id = (select member_id from members where member_age between 20 and 30 AND member_gender in 'M' AND member_addr like '%동') group by menu_seq order by cnt desc);
+
+select * from menus where menu_seq = 10;
+
+select * from menus
 select * from restaurant_info
 
 create table community(

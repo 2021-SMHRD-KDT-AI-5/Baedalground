@@ -21,7 +21,7 @@ import model.communityDTO;
 public class CommunityListServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("커뮤니티 글목록 요청...");
+//		System.out.println("커뮤니티 글목록 요청...");
 		
 		DAO dao = new DAO();
 
